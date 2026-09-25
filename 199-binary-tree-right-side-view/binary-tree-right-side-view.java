@@ -16,12 +16,12 @@
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         int lev = level(root);
-        int[] arr = new int[lev];
-        view(root,0,arr);
+        // int[] arr = new int[lev];
         List<Integer> list = new ArrayList<>();
-        for(int i = 0;i<arr.length;i++){
-            list.add(arr[i]);
-        }
+        // for(int i = 0;i<arr.length;i++){
+        //     list.add(arr[i]);
+        // }
+        view(root,0,list);
         return list;
     }
     public int level(TreeNode root){
@@ -30,10 +30,15 @@ class Solution {
         int rightlevel = level(root.right);
         return 1+Math.max(leftlevel,rightlevel);
     }
-    public void view(TreeNode root, int lev, int[] arr){
+    public void view(TreeNode root, int lev, List<Integer> list){
         if(root==null) return;
-        arr[lev] = root.val;
-        view(root.left,lev+1,arr);
-        view(root.right,lev+1,arr);
+        if(list.size()<=lev){
+            list.add(root.val);
+        }
+        else{
+            list.set(lev,root.val);
+        }
+        view(root.left,lev+1,list);
+        view(root.right,lev+1,list);
     }
 }
